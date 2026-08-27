@@ -1,0 +1,17 @@
+{
+  "sources": {
+    "部委": [
+      "http://rss.mindynode.com/guowuyuan/dongtai",
+      "http://rss.mindynode.com/guowuyuan/xinwen",
+      "http://rss.mindynode.com/guowuyuan/zhengce"
+    ],
+    "官方媒体": [
+      "http://www.xinhuanet.com/fortune/news_stock.xml",
+      "http://www.caijing.com.cn/rss/index.xml",
+      "http://www.caijing.com.cn/rss/political.xml",
+      "http://www.caijing.com.cn/rss/industrial.xml",
+      "http://www.caijing.com.cn/rss/financial.xml"
+    ],
+    "机构研报": []
+  }
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#0f172a"/>
+  <circle cx="256" cy="180" r="80" fill="#3b82f6"/>
+  <path d="M128 360 Q256 480 384 360 L384 400 Q256 520 128 400 Z" fill="#60a5fa"/>
+  <text x="256" y="340" text-anchor="middle" fill="white" font-size="120" font-family="sans-serif" font-weight="bold">知</text>
+</svg>

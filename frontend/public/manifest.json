@@ -1,0 +1,16 @@
+{
+  "name": "终生成长知识库",
+  "short_name": "终生成长",
+  "description": "终生成长知识库 - 宏观政策科技地缘",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

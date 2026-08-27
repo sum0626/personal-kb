@@ -1,0 +1,29 @@
+# 环境变量与密钥
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+Lib/
+Include/
+Scripts/
+pyvenv.cfg
+
+# Node
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+
+# 本地数据与日志
+data/*.json
+logs/
+backups/
+
+# 编辑器
+.vscode/settings.json
+.idea/
+*.swp
