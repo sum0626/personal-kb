@@ -10,8 +10,15 @@ __pycache__/
 venv/
 Lib/
 Include/
-Scripts/
 pyvenv.cfg
+
+# 注意：不要写 Scripts/，Windows 上 Git 会把它当成 scripts/ 目录忽略掉，
+# 导致项目 scripts/ 下的 Python 脚本无法提交。
+# 如果 scripts/ 目录里有虚拟环境残留文件，用下面几行排除：
+scripts/*.exe
+scripts/activate*
+scripts/deactivate.bat
+scripts/python*.exe
 
 # Node
 frontend/node_modules/
