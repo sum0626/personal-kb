@@ -125,11 +125,12 @@ const displayedNews = computed(() => {
 
 async function loadNews () {
   loading.value = true
-  const today = dayjs().format('YYYY-MM-DD')
+  // 兼容时区差异：显示最近 2 天的新闻
+  const fromDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
   const { data, error } = await auth.supabase
     .from('daily_news')
     .select('*')
-    .gte('create_date', today)
+    .gte('create_date', fromDate)
     .order('create_date', { ascending: false })
   if (error) {
     console.error('loadNews error:', error)
