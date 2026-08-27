@@ -1,17 +1,16 @@
 {
   "sources": {
-    "部委": [
-      "http://rss.mindynode.com/guowuyuan/dongtai",
-      "http://rss.mindynode.com/guowuyuan/xinwen",
-      "http://rss.mindynode.com/guowuyuan/zhengce"
-    ],
+    "部委": [],
     "官方媒体": [
-      "http://www.xinhuanet.com/fortune/news_stock.xml",
-      "http://www.caijing.com.cn/rss/index.xml",
-      "http://www.caijing.com.cn/rss/political.xml",
-      "http://www.caijing.com.cn/rss/industrial.xml",
-      "http://www.caijing.com.cn/rss/financial.xml"
+      "https://36kr.com/feed",
+      "https://www.huxiu.com/rss/0.xml",
+      "https://www.ifanr.com/feed"
     ],
     "机构研报": []
+  },
+  "_说明": {
+    "部委": "中国政府官网 RSS 不稳定，建议用 RSSHub 自建 /rsshub/app/gov 路由，或手工录入 data/daily_input.json",
+    "官方媒体": "36氪、虎嗅、爱范儿等科技/商业媒体 RSS，可稳定获取产业、科技、市场动态",
+    "机构研报": "券商/研报 RSS，需自行配置"
   }
 }
