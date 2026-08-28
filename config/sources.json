@@ -1,16 +1,36 @@
 {
   "sources": {
-    "部委": [],
+    "部委": [
+      "https://rsshub.app/gov/zhengce/zuixin",
+      "https://rsshub.app/gov/zhengce/govall",
+      "https://rsshub.app/gov/ndrc/xwdt",
+      "https://rsshub.app/gov/miit/wjfb",
+      "https://rsshub.app/gov/pbc/goutongjiaoliu"
+    ],
     "官方媒体": [
       "https://36kr.com/feed",
       "https://www.huxiu.com/rss/0.xml",
-      "https://www.ifanr.com/feed"
+      "https://www.ifanr.com/feed",
+      "https://feed.wallstreetcn.com/wallstreetcn/news/global",
+      "https://www.caixin.com/feed/",
+      "https://a.jiemian.com/index.php?m=article&a=rss",
+      "https://www.yicai.com/rss/",
+      "https://finance.sina.com.cn/rss/globalnews.xml",
+      "https://www.eastmoney.com/rss/finance.xml",
+      "https://news.un.org/feed/subscribe/zh/news/all/rss.xml",
+      "https://sputniknews.cn/export/rss2/archive/index.xml",
+      "https://rsshub.app/cctv/world"
     ],
-    "机构研报": []
+    "机构研报": [
+      "https://rsshub.app/eastmoney/report/strategyreport",
+      "https://rsshub.app/eastmoney/report/macresearch",
+      "https://rsshub.app/eastmoney/report/industry",
+      "https://rsshub.app/ulapia"
+    ]
   },
   "_说明": {
-    "部委": "中国政府官网 RSS 不稳定，建议用 RSSHub 自建 /rsshub/app/gov 路由，或手工录入 data/daily_input.json",
-    "官方媒体": "36氪、虎嗅、爱范儿等科技/商业媒体 RSS，可稳定获取产业、科技、市场动态",
-    "机构研报": "券商/研报 RSS，需自行配置"
+    "部委": "通过 RSSHub 路由抓取中国政府网、国务院、发改委、工信部、央行等官方政策/动态",
+    "官方媒体": "36氪/虎嗅/爱范儿(科技商业)、华尔街见闻/财新/界面/第一财经/新浪财经/东方财富(财经)、联合国新闻/俄罗斯卫星社/CCTV(国际/地缘)",
+    "机构研报": "东方财富策略/宏观/行业研报、乌拉邦券商晨报"
   }
 }
