@@ -21,7 +21,7 @@
         <div v-for="card in cards" :key="card.id" :data-card-id="card.id" class="bg-white dark:bg-slate-800 rounded-xl shadow p-4">
           <div class="flex items-start justify-between mb-2">
             <div class="text-xs text-slate-500 dark:text-slate-400 space-x-2">
-              <span class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">{{ card.main_category }}</span>
+              <span class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">{{ card.category_path || card.main_category }}</span>
               <span v-for="tag in card.tags" :key="tag" class="bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">{{ tag }}</span>
             </div>
             <div class="flex items-center space-x-2">
@@ -94,19 +94,22 @@ const tagQuery = ref('')
 const searchQuery = ref('')
 const bookmarkMap = ref({})
 
-const categories = [
-  '顶层国策体系',
-  '货币政策&流动性',
-  '财政政策体系',
-  '产业政策',
-  '宏观经济数据体系',
-  '金融监管体系',
-  '涉外经济&汇率&外资',
-  '市场中长期逻辑推演库',
-  '前沿科技成果库',
-  '全球地缘政治&全球重大事件库',
-  '探索订阅专题库'
-]
+const categories = ref([])
+
+async function loadCategories () {
+  try {
+    const { data, error } = await auth.supabase.rpc('get_category_tree')
+    if (error) {
+      console.error('loadCategories error:', error)
+      return
+    }
+    categories.value = (data || [])
+      .filter(c => c.level === 0)
+      .map(c => c.full_path)
+  } catch (e) {
+    console.error('loadCategories exception:', e)
+  }
+}
 
 function formatDate (d) {
   return d ? dayjs(d).format('YYYY-MM-DD HH:mm') : ''
@@ -116,7 +119,7 @@ async function loadCards () {
   loading.value = true
   let q = auth.supabase.from('knowledge_card').select('*')
   if (selectedCategory.value) {
-    q = q.eq('main_category', selectedCategory.value)
+    q = q.ilike('category_path', `${selectedCategory.value}%`)
   }
   if (tagQuery.value.trim()) {
     const tags = tagQuery.value.split(',').map(t => t.trim()).filter(Boolean)
@@ -281,6 +284,7 @@ async function toggleHistory (card) {
 }
 
 onMounted(() => {
+  loadCategories()
   loadCards()
 })
 </script>

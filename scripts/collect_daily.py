@@ -163,24 +163,47 @@ def generate_candidates(news_items: List[Dict[str, Any]], max_candidates: int = 
     return candidates[:max_candidates]
 
 
-def categorize_news(raw_text: str) -> str:
-    """简单规则分类。"""
+# 分类规则：路径 -> 关键词列表
+# 路径形如 "国内政策/宏观经济/货币政策"
+CATEGORY_RULES = [
+    ("国内政策/宏观经济/货币政策", ["降准", "降息", "mlf", "流动性", "央行", "信贷", "利率", "货币"]),
+    ("国内政策/宏观经济/财政政策", ["财政", "专项债", "赤字", "税收", "补贴", "财政政策"]),
+    ("国内政策/宏观经济/金融监管", ["监管", "证监会", "银保监会", "金融稳定", "风险"]),
+    ("国内政策/宏观经济/宏观经济", ["gdp", "cpi", "ppi", "pmi", "就业", "消费", "投资", "宏观"]),
+    ("国内政策/产业政策/人工智能", ["人工智能", "大模型", "ai", "算力", "大模型"]),
+    ("国内政策/产业政策/半导体", ["半导体", "芯片", "集成电路"]),
+    ("国内政策/产业政策/新能源", ["新能源", "光伏", "储能", "电动车", "锂电池"]),
+    ("国内政策/产业政策/制造业", ["制造业", "工业", "工厂"]),
+    ("国内政策/区域发展/长三角", ["长三角", "上海", "江苏", "浙江"]),
+    ("国内政策/区域发展/大湾区", ["大湾区", "粤港澳", "深圳", "香港"]),
+    ("国内政策/区域发展/京津冀", ["京津冀", "北京", "天津", "雄安"]),
+    ("国际局势/地缘政治/中美关系", ["中美", "关税", "贸易战", "拜登", "特朗普"]),
+    ("国际局势/地缘政治/俄乌冲突", ["俄乌", "乌克兰", "俄罗斯", "北约"]),
+    ("国际局势/地缘政治/中东局势", ["中东", "伊朗", "沙特", "以色列", "巴以"]),
+    ("国际局势/全球经济/美联储", ["美联储", "鲍威尔", "加息", "降息", "美元"]),
+    ("国际局势/全球经济/欧盟经济", ["欧盟", "欧洲", "欧元", "德国", "法国"]),
+    ("国际局势/全球经济/大宗商品", ["原油", "石油", "黄金", "铜", "铁矿石", "大宗商品"]),
+    ("前沿科技/人工智能/大模型", ["大模型", "gpt", "llm", "生成式ai"]),
+    ("前沿科技/人工智能/AI应用", ["ai应用", "智能体", "agent", "ai+"]),
+    ("前沿科技/人工智能/算力芯片", ["算力", "gpu", "英伟达", "芯片"]),
+    ("前沿科技/生物科技", ["生物科技", "医药", "疫苗", "基因"]),
+    ("前沿科技/航天航空", ["航天", "航空", "卫星", "火箭", "载人航天"]),
+    ("前沿科技/量子计算", ["量子", "量子计算", "量子通信"]),
+    ("资本市场/A股", ["a股", "上证指数", "沪深", "创业板"]),
+    ("资本市场/港股美股", ["港股", "美股", "纳斯达克", "恒生"]),
+    ("资本市场/债市", ["债券", "国债", "收益率", "城投债"]),
+    ("资本市场/外汇黄金", ["外汇", "人民币", "汇率", "黄金"]),
+]
+
+
+def classify_news(raw_text: str) -> tuple:
+    """返回 (一级分类, 完整分类路径)。"""
     text = raw_text.lower()
-    if any(k in text for k in ["降准", "降息", "mlf", "流动性", "央行", "信贷", "利率", "货币"]):
-        return "货币政策"
-    if any(k in text for k in ["财政", "专项债", "赤字", "税收", "补贴", "财政政策"]):
-        return "财政政策"
-    if any(k in text for k in ["产业", "制造业", "新能源", "半导体", "芯片", "人工智能"]):
-        return "产业政策"
-    if any(k in text for k in ["gdp", "cpi", "ppi", "pmi", "就业", "消费", "投资", "宏观"]):
-        return "宏观经济"
-    if any(k in text for k in ["监管", "证监会", "银保监会", "金融稳定", "风险"]):
-        return "金融监管"
-    if any(k in text for k in ["科技", "ai", "大模型", "量子", "航天", "生物科技"]):
-        return "前沿科技"
-    if any(k in text for k in ["美国", "欧盟", "俄乌", "中东", "台海", "制裁", "地缘", "国际关系"]):
-        return "全球地缘"
-    return "其他"
+    for path, keywords in CATEGORY_RULES:
+        if any(k in text for k in keywords):
+            main = path.split("/")[0]
+            return main, path
+    return "其他", "其他"
 
 
 def main():
@@ -200,8 +223,10 @@ def main():
     if args.source in ("local", "all"):
         local_items = load_local_input()
         for it in local_items:
-            if "category" not in it:
-                it["category"] = categorize_news(it.get("raw_fact", ""))
+            if "category" not in it or "category_path" not in it:
+                main_cat, cat_path = classify_news(it.get("raw_fact", ""))
+                it.setdefault("category", main_cat)
+                it.setdefault("category_path", cat_path)
             it.setdefault("id", str(uuid.uuid4()))
             it.setdefault("create_date", date.today().isoformat())
             it.setdefault("source_level", "其他")
@@ -220,7 +245,9 @@ def main():
                     continue
                 items = fetch_rss_feed(feed_url, source_level, "待分类")
                 for it in items:
-                    it["category"] = categorize_news(it["raw_fact"])
+                    main_cat, cat_path = classify_news(it["raw_fact"])
+                    it["category"] = main_cat
+                    it["category_path"] = cat_path
                 all_news.extend(items)
                 logger.info("RSS %s 采集：%d 条", feed_url, len(items))
 

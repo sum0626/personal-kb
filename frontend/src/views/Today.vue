@@ -33,7 +33,8 @@
           <div class="flex items-start justify-between mb-2">
             <div class="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400 flex-wrap gap-y-1">
               <span class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">{{ news.source_level }}</span>
-              <span class="bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">{{ news.category }}</span>
+              <span v-if="news.category_path" class="bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">{{ news.category_path }}</span>
+              <span v-else class="bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">{{ news.category }}</span>
               <span>{{ formatDate(news.create_date) }}</span>
               <span v-if="!news.is_read" class="w-2 h-2 rounded-full bg-blue-500"></span>
             </div>

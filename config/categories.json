@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "description": "终生成长知识库一级/二级分类体系。一级分类固定，owner 可维护；AI 只负责在已有分类下建议打标。",
+  "categories": [
+    {
+      "name": "国内政策",
+      "sort_order": 10,
+      "children": [
+        {
+          "name": "宏观经济",
+          "sort_order": 10,
+          "children": [
+            {"name": "货币政策", "sort_order": 10},
+            {"name": "财政政策", "sort_order": 20},
+            {"name": "金融监管", "sort_order": 30}
+          ]
+        },
+        {
+          "name": "产业政策",
+          "sort_order": 20,
+          "children": [
+            {"name": "人工智能", "sort_order": 10},
+            {"name": "半导体", "sort_order": 20},
+            {"name": "新能源", "sort_order": 30},
+            {"name": "制造业", "sort_order": 40}
+          ]
+        },
+        {
+          "name": "区域发展",
+          "sort_order": 30,
+          "children": [
+            {"name": "长三角", "sort_order": 10},
+            {"name": "大湾区", "sort_order": 20},
+            {"name": "京津冀", "sort_order": 30}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "国际局势",
+      "sort_order": 20,
+      "children": [
+        {
+          "name": "地缘政治",
+          "sort_order": 10,
+          "children": [
+            {"name": "中美关系", "sort_order": 10},
+            {"name": "俄乌冲突", "sort_order": 20},
+            {"name": "中东局势", "sort_order": 30}
+          ]
+        },
+        {
+          "name": "全球经济",
+          "sort_order": 20,
+          "children": [
+            {"name": "美联储", "sort_order": 10},
+            {"name": "欧盟经济", "sort_order": 20},
+            {"name": "大宗商品", "sort_order": 30}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "前沿科技",
+      "sort_order": 30,
+      "children": [
+        {
+          "name": "人工智能",
+          "sort_order": 10,
+          "children": [
+            {"name": "大模型", "sort_order": 10},
+            {"name": "AI应用", "sort_order": 20},
+            {"name": "算力芯片", "sort_order": 30}
+          ]
+        },
+        {"name": "生物科技", "sort_order": 20},
+        {"name": "航天航空", "sort_order": 30},
+        {"name": "量子计算", "sort_order": 40}
+      ]
+    },
+    {
+      "name": "资本市场",
+      "sort_order": 40,
+      "children": [
+        {"name": "A股", "sort_order": 10},
+        {"name": "港股美股", "sort_order": 20},
+        {"name": "债市", "sort_order": 30},
+        {"name": "外汇黄金", "sort_order": 40}
+      ]
+    }
+  ]
+}
